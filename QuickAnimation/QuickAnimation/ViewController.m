@@ -6,17 +6,16 @@
 //
 
 #import "ViewController.h"
-#import "MMPaintView.h"
 #import "QuickAnimationTween.h"
 #import "QuickAnimationSequeue.h"
 #import "UIView+Animation.h"
 #import "UILabel+Animation.h"
 
+
 @interface ViewController ()
-@property (nonatomic, strong) MMPaintView *paintView;
 @property (nonatomic, strong) UIView *dummy;
 @property (nonatomic, strong) UIView *ball;
-@property (nonatomic, weak) QuickAnimationSequeue* animation;
+@property (nonatomic, strong) QuickAnimationSequeue* animation;
 @property (weak, nonatomic) IBOutlet UIView *aView;
 @property (nonatomic, strong) QuickAnimationTween* sanimation;
 @end
@@ -33,9 +32,9 @@
 {
     [super viewDidAppear:animated];
     _aView.hidden = YES;
-    UIView* view = [[UIView alloc]initWithFrame:CGRectMake(100, 100, 500, 100)];
+    UIView* view = [[UIView alloc]initWithFrame:CGRectMake(100, 100, 100, 100)];
     view.backgroundColor = [UIColor purpleColor];
-    UILabel* subView = [[UILabel alloc]initWithFrame:CGRectMake(40, 10, 400, 80)];
+    UILabel* subView = [[UILabel alloc]initWithFrame:CGRectMake(40, 10, 40, 80)];
     subView.numberOfLines = 0;
     subView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     subView.backgroundColor = [UIColor yellowColor];
@@ -47,11 +46,8 @@
 //    [t startAnimation];
     
 //    QuickAnimationTween* tween =  _aView.Scale(CGPointMake(0.5, 0.5),CGPointMake(0.5, 0.5),3);
-    QuickAnimationTween* tween =  subView.WriteTextTo(@"发送到发送的服务而且人情味儿去玩儿企鹅我认为而且儿玩儿玩儿去",3);
-    [subView.TextColorTo([UIColor redColor], 3) startAnimation];
-    tween.easeType = QuickAnimationEaseOutExpo;
-    [tween startAnimation];
-
+    
+    [view.ShakeRotation(5, -1, 0.3) startAnimation];
     
     
     
@@ -68,9 +64,6 @@
 -(void)testQueue{
     
     
-    self.paintView = [[MMPaintView alloc] initWithFrame:self.view.bounds];
-    [self.view insertSubview:self.paintView atIndex:0];
-    self.paintView.backgroundColor = [UIColor whiteColor];
     
     self.dummy = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     self.dummy.layer.cornerRadius = 15.0f;
@@ -83,14 +76,12 @@
     centerMark.layer.cornerRadius = 5.0f;
     centerMark.center = CGPointMake(15.0f, 15.0f);
     
-    [self.paintView addSubview:self.dummy];
     
     self.ball = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     self.ball.layer.cornerRadius = 5.0f;
     self.ball.backgroundColor = [UIColor redColor];
     self.ball.center = CGPointMake(CGRectGetMinX([UIScreen mainScreen].bounds)+50, 150);
     
-    [self.paintView addSubview:self.ball];
     CGFloat fromValue = self.dummy.center.y;
     CGFloat toValue = self.dummy.center.y+200;
     NSMutableArray* queues = [NSMutableArray array];
@@ -233,8 +224,6 @@
         
     }
     [self.animation startAnimation];
-    self.paintView.backgroundColor = [UIColor clearColor];
-    self.paintView.layer.backgroundColor = [UIColor purpleColor].CGColor;
     
 }
 @end

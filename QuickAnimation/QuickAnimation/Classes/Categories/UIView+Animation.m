@@ -8,6 +8,7 @@
 #import "UIView+Animation.h"
 #import "QuickAnimationTween.h"
 #import "NSValue+Interpolation.h"
+#import "QuickAnimationSequeue.h"
 
 @implementation UIView (Animation)
 
@@ -252,18 +253,31 @@
 
 - (QuickShakeRotationBlock)ShakeRotation{
     
-    return  ^QuickAnimationTween* (CGFloat rotationStrength, NSInteger shakeCount ,CGFloat duration){
+    return  ^id<QuickAnimation> (CGFloat rotationStrength, NSInteger shakeCount ,CGFloat duration){
         
         CGAffineTransform transform = self.transform;
-        CGFloat rotation = 0.0;
+        CGFloat rotation = rotationStrength;
+        QuickAnimationSequeue* queue = [[QuickAnimationSequeue alloc]init];
+        
         QuickAnimationTween* tween = [[QuickAnimationTween alloc]initWithAnimationBlock:^(float current, float duration, float valueProgress) {
             
-            self.transform = CGAffineTransformRotate(transform, rotation*valueProgress*M_PI / 180.0f);
+            self.transform = CGAffineTransformRotate(transform, rotation *valueProgress*M_PI / 180.0f);
         }];
-        tween.duration = duration;
+
+        tween.duration = duration / 2.0f;
         tween.loopType = QuickAnimationLoopYoyo;
-        tween.loops = shakeCount;
-        return tween;
+        [queue appendAnimation:tween];
+        
+        tween = [[QuickAnimationTween alloc]initWithAnimationBlock:^(float current, float duration, float valueProgress) {
+            
+            self.transform = CGAffineTransformRotate(transform, -rotation *valueProgress*M_PI / 180.0f);
+        }];
+        tween.duration = duration / 2.0f;
+        tween.loopType = QuickAnimationLoopYoyo;
+        [queue appendAnimation:tween];
+        queue.loops = shakeCount;
+      
+        return queue;
     };
 }
 

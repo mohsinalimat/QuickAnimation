@@ -10,7 +10,6 @@
 
 @interface QuickAnimationSequeue()
 {
-    __strong id _holdSelf;
     NSString* _udidName;
     NSMutableArray<id<QuickAnimation>>* _animationArray;
     NSMutableArray<id<QuickAnimation>>* _playingAniamtions;
@@ -46,8 +45,8 @@ playCallBack = _playCallBack;
 -(void)commonInit{
     _name = [NSUUID UUID].UUIDString;
     _udidName = [_name copy];
-    _animationArray = [NSMutableArray array];
     _loops = 1;
+    _animationArray = [NSMutableArray array];
     _playingAniamtions = [NSMutableArray array];
     _joinAnimation = [NSMutableDictionary dictionary];
     _isPause = NO;
@@ -167,8 +166,9 @@ playCallBack = _playCallBack;
     }
     if (_playingAniamtions.count == 0){
         //动画结束
-        _loops -- ;
-        if (_loops<=0){
+        if (_loops>0)
+            _loops -- ;
+        if (_loops==0){
            
             if (_completeCallBack){
                 _completeCallBack(self);
@@ -176,8 +176,8 @@ playCallBack = _playCallBack;
             if (_completeWhenInQueue){
                 _completeWhenInQueue(self);
             }
-             _holdSelf = nil;
-        }else{
+            [[QuickAnimationManager sharedManager] removeAnimation:self];
+        }else {
             [self nextAnimation:nil];
         }
         
@@ -188,11 +188,12 @@ playCallBack = _playCallBack;
     for (id<QuickAnimation> anim in _playingAniamtions) {
         [anim stopAnimation];
     }
+
 }
 #pragma mark - animation control
 
 - (void)startAnimation{
-    _holdSelf = self;
+    [[QuickAnimationManager sharedManager] addAnimation:self];
     [self nextAnimation:nil];
 }
 
@@ -206,7 +207,7 @@ playCallBack = _playCallBack;
         _stopCallBack(self);
     }
     
-     _holdSelf = nil;
+    [[QuickAnimationManager sharedManager] removeAnimation:self];
     
 }
 

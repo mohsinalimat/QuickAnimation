@@ -10,8 +10,9 @@
 #import <POP.h>
 
 
-@protocol QuickAnimation <NSObject>
 
+
+@protocol QuickAnimation <NSObject>
 
 
 #pragma mark -animation control
@@ -67,5 +68,13 @@
  */
 @property (strong,nonatomic) QuickAnimationCallBack pauseCallBack;
 
+
+@end
+
+@interface QuickAnimationManager:NSObject
+
++(instancetype)sharedManager;
+-(void)addAnimation:(id<QuickAnimation>)anim;
+-(void)removeAnimation:(id<QuickAnimation>)anim;
 
 @end

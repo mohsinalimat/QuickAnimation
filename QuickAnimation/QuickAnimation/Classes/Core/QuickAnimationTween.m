@@ -10,7 +10,6 @@
 
 @interface QuickAnimationTween()<POPAnimationDelegate>
 {
-    __strong id _holdSelf;
     QuickAnimationEaseType _easeType;
     QuickAnimationLoopType _loopType;
     CFTimeInterval _currentTime;
@@ -104,7 +103,7 @@ playCallBack = _playCallBack;
 #pragma mark - animation control
 
 - (void)startAnimation{
-    _holdSelf = self;
+    [[QuickAnimationManager sharedManager] addAnimation:self];
     [self reset];
     [[POPAnimator sharedAnimator] pop_addAnimation:_animation forKey:_animation.name];
 }
@@ -115,7 +114,7 @@ playCallBack = _playCallBack;
     }
     [self reset];
     [[POPAnimator sharedAnimator] pop_removeAnimationForKey:_animation.name];
-    _holdSelf = nil;
+    [[QuickAnimationManager sharedManager] removeAnimation:self];
 }
 
 - (void)resumeAnimation{
@@ -186,7 +185,6 @@ playCallBack = _playCallBack;
     return NO;
 }
 - (void)dealloc{
-    
     if (_animation){
         [[POPAnimator sharedAnimator] pop_removeAnimationForKey:_animation.name];
         _animation = nil;
@@ -229,7 +227,7 @@ playCallBack = _playCallBack;
             _completeWhenInQueue(self);
         }
         [self reset];
-        _holdSelf = nil;
+        [[QuickAnimationManager sharedManager] removeAnimation:self];
     }
 }
 
