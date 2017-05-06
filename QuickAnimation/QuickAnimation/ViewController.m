@@ -47,7 +47,7 @@
     
 //    QuickAnimationTween* tween =  _aView.Scale(CGPointMake(0.5, 0.5),CGPointMake(0.5, 0.5),3);
     
-    [view.ShakeRotation(5, -1, 0.3) startAnimation];
+    [view.ShakeScale(CGPointMake(1.3, 1.3), 10, 1) startAnimation];
     
     
     

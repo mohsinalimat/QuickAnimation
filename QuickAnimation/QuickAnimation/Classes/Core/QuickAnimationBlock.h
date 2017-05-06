@@ -45,7 +45,7 @@ typedef QuickAnimationTween* (^QuickTypeWriteTextBlock)(NSString* text,CGFloat d
 
 typedef id<QuickAnimation> (^QuickShakeRotationBlock)(CGFloat rotationStrength, NSInteger shakeCount ,CGFloat duration);
 
-typedef id<QuickAnimation> (^QuickShakePositionBlock)(CGPoint posStrength, NSInteger shakeCount ,CGFloat duration);
+typedef id<QuickAnimation> (^QuickShakePositionBlock)(CGFloat radius, NSInteger shakeCount, CGFloat duration);
 
 typedef id<QuickAnimation> (^QuickShakeScaleBlock)(CGPoint scaleStrength, NSInteger shakeCount ,CGFloat duration);
 

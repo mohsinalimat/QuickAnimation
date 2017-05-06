@@ -264,7 +264,7 @@
             self.transform = CGAffineTransformRotate(transform, rotation *valueProgress*M_PI / 180.0f);
         }];
 
-        tween.duration = duration / 2.0f;
+        tween.duration = duration / 4.0f;
         tween.loopType = QuickAnimationLoopYoyo;
         [queue appendAnimation:tween];
         
@@ -272,7 +272,7 @@
             
             self.transform = CGAffineTransformRotate(transform, -rotation *valueProgress*M_PI / 180.0f);
         }];
-        tween.duration = duration / 2.0f;
+        tween.duration = duration / 4.0f;
         tween.loopType = QuickAnimationLoopYoyo;
         [queue appendAnimation:tween];
         queue.loops = shakeCount;
@@ -281,7 +281,80 @@
     };
 }
 
+- (QuickShakePositionBlock)ShakePosition{
+    
+    return  ^id<QuickAnimation> (CGFloat radiusStrenth, NSInteger shakeCount ,CGFloat duration){
+        
+        CGPoint center = self.center;
+        
+//        __block CGFloat x;
+//        __block CGFloat sign;
+//        __block CGPoint desPoint;
+//        __block CGPoint desPoint2;
+        CGFloat x = fmod(arc4random(),radiusStrenth*2)-radiusStrenth;
+        CGFloat sign = (arc4random() % 2) == 0 ? 1: -1;
+        CGPoint desPoint = CGPointMake(center.x + x,
+                               center.y + sign * sqrt(radiusStrenth*radiusStrenth - x * x));
+        CGPoint desPoint2 = CGPointMake(center.x - x,
+                                center.y - sign * sqrt(radiusStrenth*radiusStrenth - x * x));
+        
+        QuickAnimationSequeue* queue = [[QuickAnimationSequeue alloc]init];
+        
+        QuickAnimationTween* tween = [[QuickAnimationTween alloc]initWithAnimationBlock:^(float current, float duration, float valueProgress) {
+            CGPoint movePoint = [NSValue pointWithFrom:center to:desPoint progress:valueProgress];
+            self.center = CGPointMake(movePoint.x, movePoint.y);
+        }];
+        
+//        tween.startCallBack = ^(id<QuickAnimation> anim) {
+//             x = fmod(arc4random(),radiusStrenth*2)-radiusStrenth;
+//             sign = (arc4random() % 2) == 0 ? 1: -1;
+//             desPoint = CGPointMake(center.x + x,
+//                                           center.y + sign * sqrt(radiusStrenth*radiusStrenth - x * x));
+//             desPoint2 = CGPointMake(center.x - x,
+//                                            center.y - sign * sqrt(radiusStrenth*radiusStrenth - x * x));
+//        };
+        
+        tween.duration = duration / 4.0f;
+        tween.loopType = QuickAnimationLoopYoyo;
+        tween.easeType = QuickAnimationEaseOutSine;
+        [queue appendAnimation:tween];
+        
+        tween =  [[QuickAnimationTween alloc]initWithAnimationBlock:^(float current, float duration, float valueProgress) {
+            CGPoint movePoint = [NSValue pointWithFrom:center to:desPoint2 progress:valueProgress];
+            self.center = CGPointMake(movePoint.x, movePoint.y);
+        }];
 
+        tween.duration = duration / 4.0f;
+        tween.loopType = QuickAnimationLoopYoyo;
+        tween.easeType = QuickAnimationEaseOutSine;
+        [queue appendAnimation:tween];
+        queue.loops = shakeCount;
+        
+        return queue;
+    };
+}
+
+- (QuickShakeScaleBlock)ShakeScale{
+    
+    return  ^id<QuickAnimation> (CGPoint scaleStrength, NSInteger shakeCount ,CGFloat duration){
+      
+        QuickAnimationSequeue* queue = [[QuickAnimationSequeue alloc]init];
+        
+        
+        QuickAnimationTween* tween = self.ScaleTo(scaleStrength, CGPointMake(0.5, 0.5), duration / 4.0f);
+        tween.loopType = QuickAnimationLoopYoyo;
+        tween.easeType = QuickAnimationEaseOutSine;
+        [queue appendAnimation:tween];
+        
+        tween = self.ScaleTo(CGPointMake(1, 1), CGPointMake(0.5, 0.5), duration / 4.0f);
+        tween.loopType = QuickAnimationLoopYoyo;
+        tween.easeType = QuickAnimationEaseOutSine;
+        
+        [queue appendAnimation:tween];
+        queue.loops = shakeCount;
+        return queue;
+    };
+}
 
 
 @end
