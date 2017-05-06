@@ -334,27 +334,6 @@
     };
 }
 
-- (QuickShakeScaleBlock)ShakeScale{
-    
-    return  ^id<QuickAnimation> (CGPoint scaleStrength, NSInteger shakeCount ,CGFloat duration){
-      
-        QuickAnimationSequeue* queue = [[QuickAnimationSequeue alloc]init];
-        
-        
-        QuickAnimationTween* tween = self.ScaleTo(scaleStrength, CGPointMake(0.5, 0.5), duration / 4.0f);
-        tween.loopType = QuickAnimationLoopYoyo;
-        tween.easeType = QuickAnimationEaseOutSine;
-        [queue appendAnimation:tween];
-        
-        tween = self.ScaleTo(CGPointMake(1, 1), CGPointMake(0.5, 0.5), duration / 4.0f);
-        tween.loopType = QuickAnimationLoopYoyo;
-        tween.easeType = QuickAnimationEaseOutSine;
-        
-        [queue appendAnimation:tween];
-        queue.loops = shakeCount;
-        return queue;
-    };
-}
 
 
 @end

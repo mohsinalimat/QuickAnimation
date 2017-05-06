@@ -46,10 +46,20 @@
 //    [t startAnimation];
     
 //    QuickAnimationTween* tween =  _aView.Scale(CGPointMake(0.5, 0.5),CGPointMake(0.5, 0.5),3);
+    QuickAnimationSequeue* queue = [[QuickAnimationSequeue alloc]init];
     
-    [view.ShakeScale(CGPointMake(1.3, 1.3), 10, 1) startAnimation];
-    
-    
+    [queue appendInterval:5];
+    QuickAnimationTween* tween = view.MoveXTo(10, 2);
+    tween.startCallBack = ^(id<QuickAnimation> anim) {
+        NSLog(@"2");
+    };
+    [queue appendAnimation:tween];
+    [queue appendCallback:^() {
+        NSLog(@"1");
+    }];
+
+    queue.Play();
+
     
 }
 - (IBAction)action:(id)sender {

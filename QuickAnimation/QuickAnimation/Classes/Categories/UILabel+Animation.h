@@ -10,7 +10,15 @@
 
 @interface UILabel (Animation)
 
+
+/**
+ Quickly create typewriter animation
+ */
 @property (readonly,nonatomic) QuickTypeWriteTextBlock WriteTextTo;
+
+/**
+ Quickly create animations that change the font color
+ */
 @property (readonly,nonatomic) QuickColorBlock TextColorTo;
 
 @end

@@ -13,6 +13,10 @@
 @class QuickAnimationTween;
 @protocol QuickAnimation;
 
+/**
+ *  Quickly set properties and create animations
+ */
+
 typedef id<QuickAnimation> (^SetLoopBlock)(NSInteger count,QuickAnimationLoopType type);
 
 typedef id<QuickAnimation> (^SetDelayBlock)(CGFloat delay);
@@ -20,6 +24,12 @@ typedef id<QuickAnimation> (^SetDelayBlock)(CGFloat delay);
 typedef id<QuickAnimation> (^SetEaseBlock)(QuickAnimationEaseType ease);
 
 typedef id<QuickAnimation> (^FromBlock)();
+
+typedef id<QuickAnimation> (^PlayAnimationBlock)();
+
+typedef id<QuickAnimation> (^StopAnimationBlock)();
+
+typedef void (^QuickAnimationQueueCallBack)();
 
 typedef void (^QuickAnimationCallBack)(id<QuickAnimation> anim);
 

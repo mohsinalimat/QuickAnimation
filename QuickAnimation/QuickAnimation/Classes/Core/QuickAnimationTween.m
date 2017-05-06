@@ -34,8 +34,7 @@ startCallBack = _startCallBack,
 pauseCallBack = _pauseCallBack,
 stopCallBack = _stopCallBack,
 completeCallBack = _completeCallBack,
-completeWhenInQueue = _completeWhenInQueue,
-playCallBack = _playCallBack;
+completeWhenInQueue = _completeWhenInQueue;
 
 - (instancetype)init{
     return nil;
@@ -68,7 +67,6 @@ playCallBack = _playCallBack;
     self.loopType = QuickAnimationLoopRestart;
     self.loops = 1;
     self.duration = 0.0f;
-    self.removedOnCompletion = YES;
     self.isFrom = NO;
     
 }
@@ -107,6 +105,7 @@ playCallBack = _playCallBack;
     [self reset];
     [[POPAnimator sharedAnimator] pop_addAnimation:_animation forKey:_animation.name];
 }
+
 - (void)stopAnimation{
     
     if (_stopCallBack){
@@ -125,6 +124,7 @@ playCallBack = _playCallBack;
         _animation.paused = NO;
     }
 }
+
 - (void)pauseAnimation{
     if (!_animation.isPaused){
         if (_pauseCallBack){
@@ -135,6 +135,49 @@ playCallBack = _playCallBack;
 }
 
 #pragma mark - getter setter
+
+- (SetEaseBlock)SetEase{
+    return ^id<QuickAnimation> (QuickAnimationEaseType ease){
+        self.easeType = ease;
+        return self;
+    };
+}
+
+- (SetLoopBlock)SetLoops{
+    return ^id<QuickAnimation> (NSInteger count,QuickAnimationLoopType type){
+        self.loops = count;
+        self.loopType = type;
+        return self;
+    };
+}
+
+- (SetDelayBlock)SetDelay{
+    return ^id<QuickAnimation> (CGFloat delay){
+        self.delayTime = delay;
+        return self;
+    };
+}
+
+- (FromBlock)From{
+    return ^id<QuickAnimation> (){
+        self.isFrom = YES;
+        return self;
+    };
+}
+
+- (PlayAnimationBlock)Play{
+    return ^id<QuickAnimation> (){
+        [self startAnimation];
+        return self;
+    };
+}
+
+- (PlayAnimationBlock)Stop{
+    return ^id<QuickAnimation> (){
+        [self stopAnimation];
+        return self;
+    };
+}
 
 - (NSString *)udidName{
     return _animation.name;
@@ -156,14 +199,6 @@ playCallBack = _playCallBack;
 }
 
 
-- (BOOL)removedOnCompletion{
-    return _animation.removedOnCompletion;
-}
-
-- (void)setRemovedOnCompletion:(BOOL)removedOnCompletion{
-    _animation.removedOnCompletion = removedOnCompletion;
-}
-
 - (void)setLoopType:(QuickAnimationLoopType)loopType{
     _loopType = loopType;
     self.loops = self.loops;
@@ -184,6 +219,7 @@ playCallBack = _playCallBack;
     }
     return NO;
 }
+
 - (void)dealloc{
     if (_animation){
         [[POPAnimator sharedAnimator] pop_removeAnimationForKey:_animation.name];

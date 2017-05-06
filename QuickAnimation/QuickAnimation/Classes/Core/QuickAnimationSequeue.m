@@ -31,8 +31,7 @@ startCallBack = _startCallBack,
 pauseCallBack = _pauseCallBack,
 stopCallBack = _stopCallBack,
 completeCallBack = _completeCallBack,
-completeWhenInQueue = _completeWhenInQueue,
-playCallBack = _playCallBack;
+completeWhenInQueue = _completeWhenInQueue;
 
 
 - (instancetype)init{
@@ -71,7 +70,7 @@ playCallBack = _playCallBack;
     [_animationArray addObject:animation];
 }
 
-- (void)appendCallback:(QuickAnimationCallBack)callback{
+- (void)appendCallback:(QuickAnimationQueueCallBack)callback{
     
     [self appendAnimation:[self createCallbackTween:callback] ];
 }
@@ -90,7 +89,7 @@ playCallBack = _playCallBack;
     [_animationArray insertObject:animation atIndex:index];
 }
 
-- (void)insertCallback:(QuickAnimationCallBack)callback atIndex:(NSUInteger)index{
+- (void)insertCallback:(QuickAnimationQueueCallBack)callback atIndex:(NSUInteger)index{
     
     [self insertAnimation:[self createCallbackTween:callback] atIndex:index];
 }
@@ -117,10 +116,14 @@ playCallBack = _playCallBack;
     [arr addObject:animation];
 }
 
-- (id<QuickAnimation>)createCallbackTween:(QuickAnimationCallBack)callback{
+- (id<QuickAnimation>)createCallbackTween:(QuickAnimationQueueCallBack)callback{
     
     QuickAnimationTween* tween = [[QuickAnimationTween alloc]initWithAnimationBlock:nil];
-    tween.completeCallBack = callback;
+    tween.completeCallBack = ^(id<QuickAnimation> anim) {
+        if (callback){
+            callback();
+        }
+    };
     return tween;
 }
 
@@ -190,6 +193,7 @@ playCallBack = _playCallBack;
     }
 
 }
+
 #pragma mark - animation control
 
 - (void)startAnimation{
@@ -222,6 +226,7 @@ playCallBack = _playCallBack;
         _resumeCallBack(self);
     }
 }
+
 - (void)pauseAnimation{
     
     _isPause = YES;
@@ -254,6 +259,46 @@ playCallBack = _playCallBack;
 }
 
 #pragma mark - property
+
+- (SetEaseBlock)SetEase{
+    return ^id<QuickAnimation> (QuickAnimationEaseType ease){
+        return self;
+    };
+}
+
+- (SetLoopBlock)SetLoops{
+    return ^id<QuickAnimation> (NSInteger count,QuickAnimationLoopType type){
+        self.loops = count;
+        return self;
+    };
+}
+
+- (SetDelayBlock)SetDelay{
+    return ^id<QuickAnimation> (CGFloat delay){
+        self.delayTime = delay;
+        return self;
+    };
+}
+
+- (FromBlock)From{
+    return ^id<QuickAnimation> (){
+        return self;
+    };
+}
+
+- (PlayAnimationBlock)Play{
+    return ^id<QuickAnimation> (){
+        [self startAnimation];
+        return self;
+    };
+}
+
+- (PlayAnimationBlock)Stop{
+    return ^id<QuickAnimation> (){
+        [self stopAnimation];
+        return self;
+    };
+}
 
 - (NSString *)udidName{
     return _udidName;

@@ -11,66 +11,117 @@
 
 
 
-
 @protocol QuickAnimation <NSObject>
 
+/**
+ *  Delay playing time
+ */
+@property (assign,nonatomic) CGFloat delayTime;
 
-#pragma mark -animation control
+/**
+ Whether the animation is paused
+ */
+@property (readonly,nonatomic) BOOL isPause;
+
+/**
+ Animated loop frequency
+ */
+@property (assign,nonatomic) NSInteger loops;
+
+/**
+ The name of the animation
+ */
+@property (copy,nonatomic) NSString* name;
+
+/**
+ The id of the animation
+ */
+@property (readonly,nonatomic) NSString* udidName;
+
+/**
+ The duration of the animation
+ */
+@property (assign,nonatomic) CGFloat duration;
+
+
+#pragma mark - Quickly set properties
+
+/**
+ Quickly set the number of cycles and the loop mode
+ */
+@property (readonly,nonatomic) SetLoopBlock SetLoops;
+
+/**
+ Quickly set the delay time
+ */
+@property (readonly,nonatomic) SetDelayBlock SetDelay;
+
+/**
+ Quickly set easing function mode
+ */
+@property (readonly,nonatomic) SetEaseBlock SetEase;
+
+/**
+ Quickly set isFrom
+ */
+@property (readonly,nonatomic) FromBlock From;
+
+/**
+ Quickly call 'startAnimation' method
+ */
+@property (readonly,nonatomic) PlayAnimationBlock Play;
+
+/**
+ Quickly call 'stopAnimation' method
+ */
+@property (readonly,nonatomic) StopAnimationBlock Stop;
+
+#pragma mark - animation control
 
 - (void)startAnimation;
 - (void)stopAnimation;
 - (void)resumeAnimation;
 - (void)pauseAnimation;
 
+
 #pragma mark - animation event
-@property (assign,nonatomic) CGFloat delayTime;
-
-@property (readonly,nonatomic) BOOL isPause;
-
-@property (assign,nonatomic) NSInteger loops;
-
-@property (copy,nonatomic) NSString* name;
-
-@property (readonly,nonatomic) NSString* udidName;
-
-@property (assign,nonatomic) CGFloat duration;
-
 
 /**
- 动画完成时候调用
+ When the animation is finished, call it
  */
 @property (strong,nonatomic) QuickAnimationCallBack completeCallBack;
 
+/**
+ When the animation is finished, call it，not active use
+ */
 @property (strong,nonatomic) QuickAnimationCallBack completeWhenInQueue;
 
 /**
- 动画开始时候调用
+ When the animation is started, call it
  */
 @property (strong,nonatomic) QuickAnimationCallBack startCallBack;
 
 /**
- 动画取消暂停的时候调用
+ When the animation is resumed, call it
  */
 @property (strong,nonatomic) QuickAnimationCallBack resumeCallBack;
 
 /**
- 停止动画的时候调用
+ When the animation is stopped, call it
  */
 @property (strong,nonatomic) QuickAnimationCallBack stopCallBack;
 
 /**
- 播放动画的时候调用
- */
-@property (strong,nonatomic) QuickAnimationCallBack playCallBack;
-
-/**
- 暂停动画的时候调用
+ When the animation is paused, call it
  */
 @property (strong,nonatomic) QuickAnimationCallBack pauseCallBack;
 
-
 @end
 
+
+/**
+ Animation manager, in order to ensure that the animtion object is not released when animation playing
+ */
 @interface QuickAnimationManager:NSObject
 
 +(instancetype)sharedManager;

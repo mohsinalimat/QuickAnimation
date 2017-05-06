@@ -9,16 +9,16 @@
 #define QAEnum_h
 
 /**
- 动画循环模式
+ Animation cycle mode
  */
 typedef enum : NSUInteger {
     
     /**
-     *  每轮动画播放完毕以后，将从头开始，重新播放动画
+     *  After each round of animation is finished, it will start from scratch and re-play the animation
      */
     QuickAnimationLoopRestart,
     /**
-     *  动画播放完毕后，将倒序播放
+     *  After the animation is finished, it will play in reverse order
      */
     QuickAnimationLoopYoyo,
     
@@ -26,7 +26,7 @@ typedef enum : NSUInteger {
 
 
 /**
- 动画播放缓动函数类型
+ Easing function type
  */
 typedef enum : NSUInteger {
     QuickAnimationUnset,

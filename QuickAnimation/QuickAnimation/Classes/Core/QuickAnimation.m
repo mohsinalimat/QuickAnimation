@@ -1,8 +1,6 @@
 //
-//  UILabel+_.m
 //  QuickAnimation
 //
-//  Created by xmigc_wx on 2017/5/6.
 //  Copyright © 2017年 SpadeChen. All rights reserved.
 //
 
@@ -24,15 +22,18 @@
     });
     return manager;
 }
+
 -(instancetype)init{
     if (self = [super init]){
         _playingAnimation = [NSMutableArray array];
     }
     return self;
 }
+
 -(void)addAnimation:(id<QuickAnimation>)anim{
     [_playingAnimation addObject:anim];
 }
+
 -(void)removeAnimation:(id<QuickAnimation>)anim{
     [_playingAnimation removeObject:anim];
 }

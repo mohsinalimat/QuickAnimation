@@ -137,10 +137,10 @@
 			children = (
 				96F5AD491EBBFDDE0030BCE8 /* QuickAnimation.h */,
 				9682E3781EBD79BC00412374 /* QuickAnimation.m */,
+				96F5AD4D1EBBFDDE0030BCE8 /* QuickAnimationEnum.h */,
 				96F5AD4A1EBBFDDE0030BCE8 /* QuickAnimationBlock.h */,
 				96F5AD4B1EBBFDDE0030BCE8 /* QuickAnimationEaseManager.h */,
 				96F5AD4C1EBBFDDE0030BCE8 /* QuickAnimationEaseManager.m */,
-				96F5AD4D1EBBFDDE0030BCE8 /* QuickAnimationEnum.h */,
 				96F5AD4E1EBBFDDE0030BCE8 /* QuickAnimationSequeue.h */,
 				96F5AD4F1EBBFDDE0030BCE8 /* QuickAnimationSequeue.m */,
 				96F5AD501EBBFDDE0030BCE8 /* QuickAnimationTween.h */,

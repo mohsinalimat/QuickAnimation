@@ -11,23 +11,23 @@
 @interface QuickAnimationEaseManager : NSObject
 
 /**
- *  根据播放时间和动画持续时间，计算并返回一个0到1的浮点数，表示动画值目前的进度
+ *  According to the playing time and animation duration, calculate and return a 0 to 1 floating point, said the current value of the animation
  *
- *  @param easeType 缓动函数类型
- *  @param time     播放时间
- *  @param duration 持续时间
+ *  @param easeType Easing function type
+ *  @param time     current time
+ *  @param duration the duration of animation
  *
  *  @return 0-1
  */
 +(float)evalute:(QuickAnimationEaseType)easeType time:(float)time duration:(float)duration;
 /**
- *  根据播放时间和动画持续时间，计算并返回一个0到1的浮点数，表示动画值目前的进度
+ *  According to the playing time and animation duration, calculate and return a 0 to 1 floating point, said the current value of the animation
  *
- *  @param easeType 缓动函数类型
- *  @param time     播放时间
- *  @param duration 持续时间
- *  @param overshootOrAmplitude 振幅
- *  @param period 时间范围
+ *  @param easeType Easing function type
+ *  @param time     current time
+ *  @param duration the duration of animation
+ *  @param overshootOrAmplitude amplitude,used for bounces
+ *  @param period period, used for bounces
  *  @return 0-1
  */
 +(float)evalute:(QuickAnimationEaseType)easeType time:(float)time duration:(float)duration overshootOrAmplitude:(float)overshootOrAmplitude period:(float)period;
