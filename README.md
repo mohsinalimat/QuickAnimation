@@ -13,7 +13,8 @@ Installation
 Simple Usage
 ==============
 ### Create move animation
-```
+
+```objc
 UIView* view = [[UIView alloc]init];
 //1.Move the center of the view to (100,100) in 5 seconds 
 view.MoveTo(CGPointMake(100, 100), 5.0f).Play();
@@ -39,18 +40,18 @@ UIBezierPath* path = [UIBezierPath bezierPathWithArcCenter:view.center radius:50
 view.MoveCurve(path,5.0f).Play();
 ```
 ### Create fade animation
-```
+```objc
 //Change the view's alpha value to 0.2 in 5 seconds
 view.FadeTo(0.2f,5f).Play();
 ```
 ### Create color animation
-```
+```objc
 //Change the view's backgroundColor to red in 5 seconds
 view.ColorTo([UIColor redColor],5f).Play();
 ```
 
 ### Create scale animation
-```
+```objc
 //With (0.5,0.5) as the anchor point，enlarge the width 1.2 times, enlarge the height 1.5 times , in 5 seconds
 view.ScaleTo(CGPointMake(1.2, 1.5), CGPointMake(0.5, 0.5), 5.0f).Play();
 
@@ -62,7 +63,7 @@ view.ScaleHeightTo(1,2,1,5.0f).Play();
 ```
 
 ### Create rotation animation
-```
+```objc
 //Rotate 320 degrees around the Z axis
 view.RotationTo(320f,5f).Play();
 
@@ -70,7 +71,7 @@ view.RotationTo(320f,5f).Play();
 view.RotationAllAxisTo(100,200,300,5).Play();
 ```
 ### Create shake animation
-```
+```objc
 //Create an angle jitter animation.The rotation angle is 30 degrees，shake 5 times ,each time 4 seconds
 view.ShakeRotation(30,5,4).Play();
 
@@ -79,7 +80,7 @@ view.ShakePosition(10,5,4).Play();
 ```
 
 ### Create UILabel animation
-```
+```objc
 UILabel* label = [[UILabel alloc]init];
 
 //Create typewriter animation
@@ -93,7 +94,7 @@ label.TextColorTo([UIColor redColor],5.0f).Play();
 ```
 
 ### Create a queue animation
-```
+```objc
 QuickAnimationSequeue* queue = [[QuickAnimationSequeue alloc]init];
 //first animation
 [queue appendAnimation:view.MoveXTo(10,5.0f)];
@@ -112,7 +113,7 @@ QuickAnimationSequeue* queue = [[QuickAnimationSequeue alloc]init];
 queue.Play();
 ```
 ### The animation properties
-```
+```objc
 /*
 @param easeType : Animated easing function
 @param delayTime : Delay playing time
