@@ -9,8 +9,27 @@
 #import "QuickAnimationTween.h"
 #import "NSValue+Interpolation.h"
 #import "QuickAnimationSequeue.h"
+#import "QuickAnimationBezierUtil.h"
 
 @implementation UIView (Animation)
+
+- (QuickPathMoveBlock)MoveCurve{
+    return ^QuickAnimationTween* (UIBezierPath* path,CGFloat duration){
+        
+        QuickAnimationBezierUtil* bezierUtil = [[QuickAnimationBezierUtil alloc]initWithBezierPath:path];
+        
+        
+        QuickAnimationTween* tween = [[QuickAnimationTween alloc]initWithAnimationBlock:^(float current, float duration, float valueProgress) {
+            
+            self.center = [bezierUtil pointAt:valueProgress];
+            
+        }];
+        tween.duration = duration;
+        return tween;
+    };
+}
+
+
 
 #pragma mark - Move To
 
@@ -337,3 +356,4 @@
 
 
 @end
+

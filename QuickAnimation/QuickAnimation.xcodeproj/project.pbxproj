@@ -15,6 +15,7 @@
 		963CDD751EB86DE400D33E13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 963CDD741EB86DE400D33E13 /* Assets.xcassets */; };
 		963CDD781EB86DE400D33E13 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 963CDD761EB86DE400D33E13 /* LaunchScreen.storyboard */; };
 		9682E3791EBD79BC00412374 /* QuickAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682E3781EBD79BC00412374 /* QuickAnimation.m */; };
+		96A99E4C1EC1EB66006784ED /* QuickAnimationBezierUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A99E4B1EC1EB66006784ED /* QuickAnimationBezierUtil.m */; };
 		96F5AD521EBBFDDE0030BCE8 /* QuickAnimationEaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F5AD4C1EBBFDDE0030BCE8 /* QuickAnimationEaseManager.m */; };
 		96F5AD531EBBFDDE0030BCE8 /* QuickAnimationSequeue.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F5AD4F1EBBFDDE0030BCE8 /* QuickAnimationSequeue.m */; };
 		96F5AD541EBBFDDE0030BCE8 /* QuickAnimationTween.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F5AD511EBBFDDE0030BCE8 /* QuickAnimationTween.m */; };
@@ -38,6 +39,8 @@
 		963CDD771EB86DE400D33E13 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		963CDD791EB86DE400D33E13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9682E3781EBD79BC00412374 /* QuickAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickAnimation.m; sourceTree = "<group>"; };
+		96A99E4A1EC1EB66006784ED /* QuickAnimationBezierUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickAnimationBezierUtil.h; sourceTree = "<group>"; };
+		96A99E4B1EC1EB66006784ED /* QuickAnimationBezierUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickAnimationBezierUtil.m; sourceTree = "<group>"; };
 		96F5AD491EBBFDDE0030BCE8 /* QuickAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickAnimation.h; sourceTree = "<group>"; };
 		96F5AD4A1EBBFDDE0030BCE8 /* QuickAnimationBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickAnimationBlock.h; sourceTree = "<group>"; };
 		96F5AD4B1EBBFDDE0030BCE8 /* QuickAnimationEaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickAnimationEaseManager.h; sourceTree = "<group>"; };
@@ -113,10 +116,20 @@
 		963CDD7F1EB86F2600D33E13 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				9660D6EF1EC1B3CE0030C999 /* Utility */,
 				96F5AD471EBBFDDE0030BCE8 /* Categories */,
 				96F5AD481EBBFDDE0030BCE8 /* Core */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		9660D6EF1EC1B3CE0030C999 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				96A99E4A1EC1EB66006784ED /* QuickAnimationBezierUtil.h */,
+				96A99E4B1EC1EB66006784ED /* QuickAnimationBezierUtil.m */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		96F5AD471EBBFDDE0030BCE8 /* Categories */ = {
@@ -296,6 +309,7 @@
 				963CDD6D1EB86DE400D33E13 /* AppDelegate.m in Sources */,
 				963CDD6A1EB86DE400D33E13 /* main.m in Sources */,
 				96F5AD5D1EBC70E70030BCE8 /* UILabel+Animation.m in Sources */,
+				96A99E4C1EC1EB66006784ED /* QuickAnimationBezierUtil.m in Sources */,
 				96F5AD531EBBFDDE0030BCE8 /* QuickAnimationSequeue.m in Sources */,
 				96F5AD5A1EBC04AD0030BCE8 /* NSValue+Interpolation.m in Sources */,
 			);

@@ -37,6 +37,8 @@ typedef void (^QuickAnimationValueProgress)(float current, float duration,float 
 
 typedef QuickAnimationTween* (^QuickPointBlock)(CGPoint value,CGFloat duration);
 
+typedef QuickAnimationTween* (^QuickPathMoveBlock)(UIBezierPath* path,CGFloat duration);
+
 typedef QuickAnimationTween* (^QuickFloatBlock)(CGFloat value,CGFloat duration);
 
 typedef QuickAnimationTween* (^QuickFadeBlock)(CGFloat alpha,CGFloat duration);
@@ -52,6 +54,7 @@ typedef QuickAnimationTween* (^QuickRotationBlock)(CGFloat rotation,CGFloat dura
 typedef QuickAnimationTween* (^QuickRotationAroundXYZBlock)(CGFloat xRotation,CGFloat yRotation,CGFloat zRotation,CGFloat duration);
 
 typedef QuickAnimationTween* (^QuickTypeWriteTextBlock)(NSString* text,CGFloat duration);
+typedef QuickAnimationTween* (^QuickHandWriteTextBlock)(NSString* text,CGFloat duration);
 
 typedef id<QuickAnimation> (^QuickShakeRotationBlock)(CGFloat rotationStrength, NSInteger shakeCount ,CGFloat duration);
 

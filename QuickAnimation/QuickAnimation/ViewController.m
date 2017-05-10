@@ -34,10 +34,10 @@
     _aView.hidden = YES;
     UIView* view = [[UIView alloc]initWithFrame:CGRectMake(100, 100, 100, 100)];
     view.backgroundColor = [UIColor purpleColor];
-    UILabel* subView = [[UILabel alloc]initWithFrame:CGRectMake(40, 10, 40, 80)];
+    UILabel* subView = [[UILabel alloc]initWithFrame:CGRectMake(40, 10, 40, 200)];
     subView.numberOfLines = 0;
+    subView.textColor = [UIColor blueColor];
     subView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    subView.backgroundColor = [UIColor yellowColor];
     [view addSubview:subView];
     [self.view addSubview:view];
     
@@ -46,20 +46,19 @@
 //    [t startAnimation];
     
 //    QuickAnimationTween* tween =  _aView.Scale(CGPointMake(0.5, 0.5),CGPointMake(0.5, 0.5),3);
-    QuickAnimationSequeue* queue = [[QuickAnimationSequeue alloc]init];
+
+//    UIBezierPath* path = [UIBezierPath bezierPath];
+//    [path moveToPoint:view.center];
+//    [path addLineToPoint:CGPointMake(0, 0)];
+//    [path addQuadCurveToPoint:CGPointMake(200, 200) controlPoint:CGPointMake(0, 160)];
+//    [path addCurveToPoint:CGPointMake(300, 300) controlPoint1:CGPointMake(1, 1) controlPoint2:CGPointMake(2, 2)];
+    UIBezierPath* path = [UIBezierPath bezierPathWithArcCenter:view.center radius:50 startAngle:0 endAngle:M_PI*2 clockwise:YES];
     
-    [queue appendInterval:5];
-    QuickAnimationTween* tween = view.MoveXTo(10, 2);
-    tween.startCallBack = ^(id<QuickAnimation> anim) {
-        NSLog(@"2");
-    };
-    [queue appendAnimation:tween];
-    [queue appendCallback:^() {
-        NSLog(@"1");
-    }];
-
-    queue.Play();
-
+    view.MoveCurve(path,3).SetEase(QuickAnimationEaseInBack)
+        .SetLoops(2, QuickAnimationLoopYoyo)
+        .Play();
+    
+    
     
 }
 - (IBAction)action:(id)sender {

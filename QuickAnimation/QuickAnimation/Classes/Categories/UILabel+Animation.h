@@ -21,4 +21,9 @@
  */
 @property (readonly,nonatomic) QuickColorBlock TextColorTo;
 
+/**
+  Quickly create handwriting animation
+ */
+@property (readonly,nonatomic) QuickHandWriteTextBlock HandWriteTo;
+
 @end

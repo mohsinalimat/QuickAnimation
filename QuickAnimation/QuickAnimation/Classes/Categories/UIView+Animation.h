@@ -16,6 +16,10 @@
 
 
 /**
+ Quickly create animation along curve
+ */
+@property (readonly,nonatomic) QuickPathMoveBlock MoveCurve;
+/**
  Quickly create moving animations, moving center to the value
  CGPoint value : target center
  CGFloat duration : the duration of animation
