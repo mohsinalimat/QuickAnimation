@@ -89,10 +89,51 @@ label.WriteTextTo(@"the target string",5.0f).Play();
 //Create handwriting animation
 label.HandWriteTo(@"the target string",5.0f).Play();
 
-//change the label's textColor to red in 5 seconds;
+//Change the label's textColor to red in 5 seconds;
 label.TextColorTo([UIColor redColor],5.0f).Play();
 ```
+### Create CALayer animation
+```objc
+CALayer* layer = self.view.layer;
 
+//Create the radius changing animation
+layer.CornerRadiusTo(10,5.0f).Play();
+
+//Create the shadowOpacity changing animation
+layer.ShadowOpacityTo(1,5.0f).Play();
+
+//Create the shadowOffset changing animation
+layer.ShadowOffsetTo(CGPointMake(5,5),5.f).Play();
+
+//Create the shadow's blur radius changing animation
+layer.ShadowRadiusTo(4,5).Play();
+
+//Create the shadow's color changing animation
+layer.ShadowColorTo([UIColor redColor],5.0f).Play();
+
+//Create the layer's borderWidth changing animation
+layer.BorderWidthTo(5,5.0f).Play();
+
+//Create the layer's borderColor changing animation
+layer.BorderColorTo([UIColor redColor],5.0f).Play();
+```
+
+### Create CAShapeLayer animation
+```objc
+CAShapeLayer* layer = [CAShapeLayer layer];
+//Create the strokeStart and the strokeEnd changing animation
+//change strokeStart to 0.3, strokeEnd to 0.7
+layer.StrokeRangeTo(CGPoint(0.3,0.7),5.0f).Play();
+
+//Create the stroke color changing animation
+layer.StrokeColorTo([UIColor redColor],5.0f).Play();
+
+//Create the fill color changing animation
+layer.FillColorTo([UIColor redColor],5.0f).Play();
+
+//Create the layer's lineWidth changing animation
+layer.LineWidthTo(2,5.0f).Play();
+```
 ### Create a queue animation
 ```objc
 //The animations in the queue will be played in sequence
@@ -253,7 +294,48 @@ label.HandWriteTo(@"the target string",5.0f).Play();
 //创建文本文字颜色改变的动画效果
 label.TextColorTo([UIColor redColor],5.0f).Play();
 ```
+### 创建CALayer动画
+```objc
+CALayer* layer = self.view.layer;
 
+//layer的cornerRadius将逐渐改变为10
+layer.CornerRadiusTo(10,5.0f).Play();
+
+//layer的阴影可见度将由原来的值变为1
+layer.ShadowOpacityTo(1,5.0f).Play();
+
+//layer的阴影偏移量将变为（5，5）
+layer.ShadowOffsetTo(CGPointMake(5,5),5.f).Play();
+
+//layer的阴影模糊半径将变为4
+layer.ShadowRadiusTo(4,5).Play();
+
+//阴影颜色将变为红色
+layer.ShadowColorTo([UIColor redColor],5.0f).Play();
+
+//边框宽度将变为5
+layer.BorderWidthTo(5,5.0f).Play();
+
+//边框颜色将变为红色
+layer.BorderColorTo([UIColor redColor],5.0f).Play();
+```
+
+### Create CAShapeLayer animation
+```objc
+CAShapeLayer* layer = [CAShapeLayer layer];
+
+//让layer的线条逐渐变化为只显示30%-70%的部分
+layer.StrokeRangeTo(CGPoint(0.3,0.7),5.0f).Play();
+
+//线条的颜色逐渐变为红色
+layer.StrokeColorTo([UIColor redColor],5.0f).Play();
+
+//填充色逐渐变为红色
+layer.FillColorTo([UIColor redColor],5.0f).Play();
+
+//线条宽度逐渐变为2
+layer.LineWidthTo(2,5.0f).Play();
+```
 ### 创建队列动画
 ```objc
 //队列中的动画将会顺序播放
@@ -274,7 +356,7 @@ QuickAnimationSequeue* queue = [[QuickAnimationSequeue alloc]init];
 [queue appendInterval:4.0f];
 queue.Play();
 ```
-### The animation properties
+### 动画相关属性
 ```objc
 /*
 @param easeType : 动画播放时的缓动模式
