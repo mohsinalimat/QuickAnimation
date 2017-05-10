@@ -4,12 +4,12 @@ Pod::Spec.new do |s|
  
 
   s.name         = "QuickAnimation"
-  s.version      = "0.0.1"
+  s.version      = "1.0"
   s.summary      = "iOS utility classes for creating common animations quickly,referred to Unity Dotween.
 The library is based on the facebook's pop library."
   s.homepage     = "https://github.com/SpadeChen/QuickAnimation"
   s.license      = { :type => "MIT", :file => "LICENSE" }
-  s.author       = "SpadeChen"
+  s.authors      = { 'SpadeChen' => 'poker_ace@sina.cn' }
   s.platform     = :ios, "6.0"
   s.ios.deployment_target = "6.0"
   s.source       = { :git => 'https://github.com/SpadeChen/QuickAnimation.git', :tag => s.version.to_s }
