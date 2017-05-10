@@ -15,6 +15,7 @@
                        (toValue.y-fromValue.y)*progress + fromValue.y
                        );
 }
+
 + (CGFloat)floatWithFrom:(CGFloat)fromValue to:(CGFloat)toValue progress:(CGFloat)progress{
     return (toValue - fromValue) * progress + fromValue;
 }
@@ -24,7 +25,11 @@
 }
 
 + (UIColor*)colorWithFrom:(UIColor*)fromValue to:(UIColor*)toValue progress:(CGFloat)progress{
-    CGFloat oA,oR,oG,oB,nA,nR,nG,nB;
+    if (fromValue == nil && toValue == nil){
+        return nil;
+    }
+  
+    CGFloat oA = 0,oR = 0,oG =0,oB =0,nA = 0,nR = 0,nG = 0,nB = 0;
     [fromValue getRed:&oR green:&oG blue:&oB alpha:&oA];
     [toValue getRed:&nR green:&nG blue:&nB alpha:&nA];
     

@@ -60,6 +60,15 @@ typedef id<QuickAnimation> (^QuickShakeRotationBlock)(CGFloat rotationStrength, 
 
 typedef id<QuickAnimation> (^QuickShakePositionBlock)(CGFloat radius, NSInteger shakeCount, CGFloat duration);
 
-typedef id<QuickAnimation> (^QuickShakeScaleBlock)(CGPoint scaleStrength, NSInteger shakeCount ,CGFloat duration);
+
+typedef id<QuickAnimation> (^QuickLayerCornerBlock)(CGFloat toCornerRadius,CGFloat duration);
+
+typedef id<QuickAnimation> (^QuickShadowOpacityBlock)(CGFloat toOpacity,CGFloat duration);
+
+typedef id<QuickAnimation> (^QuickShadowOffsetBlock)(CGPoint toOffset,CGFloat duration);
+
+typedef id<QuickAnimation> (^QuickShadowRadiusBlock)(CGFloat toShadowRadius,CGFloat duration);
+
+typedef id<QuickAnimation> (^QuickStrokeRangeBlock)(CGFloat start,CGFloat end,CGFloat duration);
 
 #endif /* QuickAnimationBlock_h */

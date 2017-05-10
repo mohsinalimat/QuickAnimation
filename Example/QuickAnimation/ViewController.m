@@ -10,7 +10,9 @@
 #import "QuickAnimationSequeue.h"
 #import "UIView+Animation.h"
 #import "UILabel+Animation.h"
-
+#import "CALayer+Animation.h"
+#import <JPFPSStatus.h>
+#import "CAShapeLayer+Animation.h"
 
 @interface ViewController ()
 @property (nonatomic, strong) UIView *dummy;
@@ -25,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-
+    [[JPFPSStatus sharedInstance] open];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -41,32 +43,25 @@
     [view addSubview:subView];
     [self.view addSubview:view];
     
-//    QuickAnimationTween* t = _aView.MoveTo(CGPointMake(100, 100), 3);
-//    t.easeType = QuickAnimationEaseOutBounce;
-//    [t startAnimation];
+    CAShapeLayer* shape = [CAShapeLayer layer];
+    [self.view.layer addSublayer:shape];
+    shape.frame = self.view.bounds;
+    shape.path = [UIBezierPath bezierPathWithArcCenter:self.view.center radius:100 startAngle:0 endAngle:2*M_PI clockwise:YES].CGPath;
+    shape.fillColor = [UIColor grayColor].CGColor;
+    shape.strokeColor = [UIColor purpleColor].CGColor;
+    shape.lineWidth = 5;
+    shape.StrokeRangeTo(0, 0, 5).Play();
+    shape.StrokeColorTo([UIColor yellowColor], 5).Play();
+    shape.FillColorTo(nil, 5).Play();
+    shape.LineWidthTo(0, 5).Play();
+    view.layer.ShadowColorTo([UIColor purpleColor], 5).Play();
+    view.layer.BorderWidthTo(3, 5).Play();
+    view.layer.BorderColorTo([UIColor yellowColor], 5).Play();
+    view.layer.ShadowOpacityTo(5, 5).Play();
+    view.layer.ShadowRadiusTo(10, 5).Play();
+    view.layer.ShadowOffsetTo(CGPointMake(5, -5), 5).Play();
+    view.layer.CornerRadiusTo(30, 5).Play();
     
-//    QuickAnimationTween* tween =  _aView.Scale(CGPointMake(0.5, 0.5),CGPointMake(0.5, 0.5),3);
-
-//    UIBezierPath* path = [UIBezierPath bezierPath];
-//    [path moveToPoint:view.center];
-//    [path addLineToPoint:CGPointMake(0, 0)];
-//    [path addQuadCurveToPoint:CGPointMake(200, 200) controlPoint:CGPointMake(0, 160)];
-//    [path addCurveToPoint:CGPointMake(300, 300) controlPoint1:CGPointMake(1, 1) controlPoint2:CGPointMake(2, 2)];
-    UIBezierPath* path = [UIBezierPath bezierPathWithArcCenter:view.center radius:50 startAngle:0 endAngle:M_PI*2 clockwise:YES];
-    subView.HandWriteTo(@"你好啊。。。", 4).Play();
-    view.MoveCurve(path,3).SetEase(QuickAnimationEaseInBack)
-        .SetLoops(2, QuickAnimationLoopYoyo)
-        .Play();
-    
-    view.MoveXTo(1,1)
-    .SetLoops(5,QuickAnimationLoopYoyo)
-				.SetDelay(5.0f)
-				.SetEase(QuickAnimationEaseInBounce)
-				.From()
-				.Play();
-    
-//    view.MoveTo(CGPointMake(100, 100), 5.0f).Play();
-    view.MoveXBy(100.0f, 5.0f).SetEase(QuickAnimationEaseInBack).SetLoops(1, QuickAnimationLoopYoyo).Play();
 }
 - (IBAction)action:(id)sender {
     static int i = 0;
