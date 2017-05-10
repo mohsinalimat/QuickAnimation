@@ -58,8 +58,15 @@
         .SetLoops(2, QuickAnimationLoopYoyo)
         .Play();
     
+    view.MoveXTo(1,1)
+    .SetLoops(5,QuickAnimationLoopYoyo)
+				.SetDelay(5.0f)
+				.SetEase(QuickAnimationEaseInBounce)
+				.From()
+				.Play();
     
-    
+//    view.MoveTo(CGPointMake(100, 100), 5.0f).Play();
+    view.MoveXBy(100.0f, 5.0f).SetEase(QuickAnimationEaseInBack).SetLoops(1, QuickAnimationLoopYoyo).Play();
 }
 - (IBAction)action:(id)sender {
     static int i = 0;
@@ -103,6 +110,7 @@
         queue.startCallBack = ^(id<QuickAnimation> anim) {
             NSLog(@"%@-开始动画",anim.name);
         };
+        
         queue.stopCallBack = ^(id<QuickAnimation> anim) {
             NSLog(@"%@-手动停止动画",anim.name);
         };
@@ -126,6 +134,9 @@
         }];
         
         [queues[1] appendAnimation:anim];
+        [queues[1] appendCallback:^{
+            
+        }];
         if (i==1){
             QuickAnimationTween* anim = [[QuickAnimationTween alloc]initWithAnimationBlock:^(float t, float d,float valueProgress) {
                 

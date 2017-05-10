@@ -14,9 +14,6 @@ static const float defaultEaseOvershootOrAmplitude = 1.70158f;
 static const float defaultEasePeriod = 0;
 
 
-
-
-
 @interface QuickAnimationEaseManager()
 
 
