@@ -24,4 +24,15 @@
  */
 - (CGPoint)pointAt:(CGFloat)valueProgress;
 
+
+
+/**
+ Create bezier path from attribute string
+
+ @param string The attribute string used to generate the path
+ @param size the max size
+ @return UIBezierPath
+ */
++ (UIBezierPath*)createBezierPathFrom:(NSAttributedString *)string size:(CGSize)size;
+
 @end

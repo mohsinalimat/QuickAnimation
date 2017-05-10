@@ -53,7 +53,7 @@
 //    [path addQuadCurveToPoint:CGPointMake(200, 200) controlPoint:CGPointMake(0, 160)];
 //    [path addCurveToPoint:CGPointMake(300, 300) controlPoint1:CGPointMake(1, 1) controlPoint2:CGPointMake(2, 2)];
     UIBezierPath* path = [UIBezierPath bezierPathWithArcCenter:view.center radius:50 startAngle:0 endAngle:M_PI*2 clockwise:YES];
-    
+    subView.HandWriteTo(@"你好啊。。。", 4).Play();
     view.MoveCurve(path,3).SetEase(QuickAnimationEaseInBack)
         .SetLoops(2, QuickAnimationLoopYoyo)
         .Play();

@@ -7,8 +7,9 @@
 
 #import "UILabel+Animation.h"
 #import "QuickAnimationTween.h"
-#import <CoreText/CoreText.h>
 #import "NSValue+Interpolation.h"
+#import "QuickAnimationBezierUtil.h"
+#import <CoreText/CoreText.h>
 
 @implementation UILabel (Animation)
 
@@ -46,13 +47,20 @@
     
     return ^QuickAnimationTween* (NSString* text,CGFloat duration){
         
+        NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:text];
+        [attString addAttribute:(id)kCTForegroundColorAttributeName value:self.textColor range:NSMakeRange(0 , text.length)];
+        CGFloat fontSize = self.font.pointSize;
+        CTFontRef fontRef = CTFontCreateWithName((CFStringRef)self.font.fontName, fontSize, NULL);
+        [attString addAttribute:(id)kCTFontAttributeName value:(__bridge id)fontRef range:NSMakeRange(0, text.length)];
+        CFRelease(fontRef);
+        
         CAShapeLayer* shape = [CAShapeLayer layer];
         [self.layer addSublayer:shape];
-        UIBezierPath* path = [self _bezierPathFrom:text size:self.frame.size];
+        UIBezierPath* path = [QuickAnimationBezierUtil createBezierPathFrom:attString size:self.frame.size];
         shape.path = path.CGPath;
         shape.frame = self.bounds;
-        shape.geometryFlipped = YES;
         shape.fillColor = nil;
+        shape.geometryFlipped = YES;
         shape.strokeColor = self.textColor.CGColor;
         shape.strokeStart = 0;
         
@@ -65,72 +73,6 @@
         
     };
     
-}
-
-- (UIBezierPath *)_bezierPathFrom:(NSString *)string size:(CGSize)size{
-    CGMutablePathRef letters = CGPathCreateMutable();
-    
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddRect(path, NULL, CGRectMake(0, 0, size.width, size.height));
-
-    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:string];
-    [attString addAttribute:(id)kCTForegroundColorAttributeName value:self.textColor range:NSMakeRange(0 , string.length)];
-    CGFloat fontSize = self.font.pointSize;
-    CTFontRef fontRef = CTFontCreateWithName((CFStringRef)self.font.fontName, fontSize, NULL);
-    [attString addAttribute:(id)kCTFontAttributeName value:(__bridge id)fontRef range:NSMakeRange(0, string.length)];
-    
-    CTFramesetterRef frameSetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)attString);
-    CTFrameRef frame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, [attString length]), path, NULL);
-    
-    CFArrayRef lines = CTFrameGetLines(frame);
-    NSInteger lineCount = CFArrayGetCount(lines);
-    
-    CGPoint lineOrigins[lineCount];
-    CTFrameGetLineOrigins(frame, CFRangeMake(0, 0), lineOrigins);
-
-
-    for (CFIndex lineIndex = 0 ;lineIndex < lineCount;lineIndex++){
-        CFArrayRef runArray = CTLineGetGlyphRuns(
-                                                 (CTLineRef)CFArrayGetValueAtIndex(lines,lineIndex)
-                                                 );
-        // for each run
-        for (CFIndex runIndex = 0; runIndex < CFArrayGetCount(runArray); runIndex++) {
-            // Get Font for this run
-            CTRunRef run = (CTRunRef)CFArrayGetValueAtIndex(runArray, runIndex);
-            CTFontRef runFont = CFDictionaryGetValue(CTRunGetAttributes(run), kCTFontAttributeName);
-            // for each GLyph in run
-            for (CFIndex runGlyphIndex = 0; runGlyphIndex < CTRunGetGlyphCount(run); runGlyphIndex++) {
-                // get Glyph & Glyph-data
-                CFRange thisGlyphRange = CFRangeMake(runGlyphIndex, 1);
-                CGGlyph glyph;
-                CGPoint position;
-                CTRunGetGlyphs(run, thisGlyphRange, &glyph);
-                CTRunGetPositions(run, thisGlyphRange, &position);
-                position = CGPointMake(position.x+lineOrigins[lineIndex].x, position.y+lineOrigins[lineIndex].y);
-                // Get path of outline
-                {
-                    CGPathRef letter = CTFontCreatePathForGlyph(runFont, glyph, NULL);
-                    CGAffineTransform t = CGAffineTransformMakeTranslation(position.x, position.y);
-                    CGPathAddPath(letters, &t, letter);
-                    CGPathRelease(letter);
-                }
-            }
-        }
-    }
-    
-    
-    
-    UIBezierPath *bpath = [UIBezierPath bezierPath];
-    [bpath moveToPoint:CGPointZero];
-    [bpath appendPath:[UIBezierPath bezierPathWithCGPath:letters]];
-    
-    CFRelease(path);
-    CFRelease(letters);
-    CFRelease(fontRef);
-    CFRelease(frame);
-    CFRelease(frameSetter);
-    
-    return bpath;
 }
 
 
