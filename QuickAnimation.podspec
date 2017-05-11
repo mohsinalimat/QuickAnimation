@@ -1,8 +1,6 @@
 
 Pod::Spec.new do |s|
 
- 
-
   s.name         = "QuickAnimation"
   s.version      = "1.0"
   s.summary      = "iOS utility classes for creating common animations quickly,referred to Unity Dotween.

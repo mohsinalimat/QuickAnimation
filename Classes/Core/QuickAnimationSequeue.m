@@ -7,6 +7,7 @@
 
 #import "QuickAnimationSequeue.h"
 #import "QuickAnimationTween.h"
+#import "POP.h"
 
 @interface QuickAnimationSequeue()
 {

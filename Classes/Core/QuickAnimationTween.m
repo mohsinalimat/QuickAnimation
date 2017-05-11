@@ -7,6 +7,7 @@
 
 #import "QuickAnimationTween.h"
 #import "QuickAnimationEaseManager.h"
+#import "POP.h"
 
 @interface QuickAnimationTween()<POPAnimationDelegate>
 {
