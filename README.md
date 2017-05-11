@@ -7,7 +7,8 @@ The library is based on the facebook's pop library.
 
 Installation
 ==============
-
+### Cocoapod
+pod 'QuickAnimation'
 
 
 Simple Usage
@@ -210,6 +211,8 @@ iOS 快速创建动画的工具类，使用facebook的pop作为动画引擎。�
 
 安装
 ==============
+### Cocoapod
+pod 'QuickAnimation'
 
 简单用法
 ==============
